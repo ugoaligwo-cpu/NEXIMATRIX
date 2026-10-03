@@ -1,0 +1,9 @@
+# CORS headers for frontend access
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "http://localhost:3000"
+    Header set Access-Control-Allow-Methods "GET, POST, PATCH, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, X-CSRF-Token, Authorization"
+    Header set Access-Control-Allow-Credentials "true"
+</IfModule>
+
+# OPTIONS preflight requests are handled by PHP (which sets CORS headers first)

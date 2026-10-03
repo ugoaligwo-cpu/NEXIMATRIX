@@ -1,0 +1,38 @@
+USE neximatrix;
+
+-- Ensure email_templates table exists with all required templates
+INSERT INTO email_templates (name, subject, body, variables, is_active) VALUES
+  ('welcome', 'Welcome to {{site_name}}',
+   'Hello {{user_name}},\n\nWelcome to {{site_name}}! We are excited to have you on board.\n\nYou can sign in at: {{login_url}}\n\nIf you have any questions, contact us at: {{support_email}}\n\nBest regards,\nThe {{site_name}} Team',
+   '["site_name","user_name","login_url","support_email"]', 1),
+  ('registration_confirmation', 'Confirm your {{site_name}} registration',
+   'Hello {{user_name}},\n\nThank you for registering at {{site_name}}.\n\nPlease confirm your email address by clicking the link below:\n{{confirmation_url}}\n\nIf you did not create this account, you can ignore this message.\n\nBest regards,\nThe {{site_name}} Team',
+   '["site_name","user_name","confirmation_url"]', 1),
+  ('password_reset', 'Reset your {{site_name}} password',
+   'Hello {{user_name}},\n\nA password reset was requested for your account.\n\nUse this link within one hour:\n{{reset_url}}\n\nIf you did not request this, ignore this message.\n\nBest regards,\nThe {{site_name}} Team',
+   '["site_name","user_name","reset_url"]', 1),
+  ('account_update', 'Your {{site_name}} account was updated',
+   'Hello {{user_name}},\n\nYour account information was recently updated.\n\nIf you did not make this change, please contact us immediately at: {{support_email}}\n\nBest regards,\nThe {{site_name}} Team',
+   '["site_name","user_name","support_email"]', 1),
+  ('account_status', 'Your {{site_name}} account status changed',
+   'Hello {{user_name}},\n\nYour account status has been changed to: {{new_status}}\n\nIf you have any questions, contact us at: {{support_email}}\n\nBest regards,\nThe {{site_name}} Team',
+   '["site_name","user_name","new_status","support_email"]', 1),
+  ('support_received', 'Support ticket received - #{{ticket_number}}',
+   'Hello {{user_name}},\n\nWe have received your support ticket.\n\nSubject: {{ticket_subject}}\n\nWe will respond as soon as possible.\n\nView your ticket: {{ticket_url}}\n\nBest regards,\nThe {{site_name}} Support Team',
+   '["site_name","user_name","ticket_number","ticket_subject","ticket_url"]', 1),
+  ('support_reply', 'Response to your support ticket - #{{ticket_number}}',
+   'Hello {{user_name}},\n\nYour ticket "{{ticket_subject}}" has received a new response:\n\n{{message}}\n\nView your ticket: {{ticket_url}}\n\nBest regards,\nThe {{site_name}} Support Team',
+   '["site_name","user_name","ticket_number","ticket_subject","message","ticket_url"]', 1),
+  ('admin_announcement', 'Important announcement from {{site_name}}',
+   'Hello {{user_name}},\n\n{{announcement_body}}\n\nBest regards,\nThe {{site_name}} Team',
+   '["site_name","user_name","announcement_body"]', 1),
+  ('referral_info', 'Your referral for {{site_name}}',
+   'Hello {{user_name}},\n\nHere is your referral information:\n\nReferral link: {{referral_url}}\n\nShare this link with friends to earn demo points.\n\nBest regards,\nThe {{site_name}} Team',
+   '["site_name","user_name","referral_url"]', 1),
+  ('newsletter_confirmation', 'Newsletter subscription confirmed - {{site_name}}',
+   'Hello {{user_name}},\n\nThank you for subscribing to the {{site_name}} newsletter.\n\nYou can unsubscribe at any time by clicking the link in any newsletter email.\n\nBest regards,\nThe {{site_name}} Team',
+   '["site_name","user_name"]', 1),
+  ('security_notification', 'Security alert for your {{site_name}} account',
+   'Hello {{user_name}},\n\nA security event was detected on your account:\n\nEvent: {{event_type}}\nTime: {{event_time}}\n\nIf this was not you, please change your password immediately and contact us at: {{support_email}}\n\nBest regards,\nThe {{site_name}} Security Team',
+   '["site_name","user_name","event_type","event_time","support_email"]', 1)
+ON DUPLICATE KEY UPDATE subject = VALUES(subject), body = VALUES(body), variables = VALUES(variables);

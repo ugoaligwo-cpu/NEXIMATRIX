@@ -30,8 +30,18 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# local HYIP staging (keep the deny rule, never commit uploads)
+/backend/storage/hyip-imports/*
+!/backend/storage/hyip-imports/.htaccess
+
+# user-submitted deposit evidence (never commit uploads)
+/backend/storage/deposits/*
+!/backend/storage/deposits/.htaccess
+
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+!**/.env.example
 
 # vercel
 .vercel
@@ -39,3 +49,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local database dumps (may contain user data)
+/backup_before_testing.sql
+*.sql.dump
+
+# large local archives
+/INVEST PR.zip
+**/*.zip
+
+# OS / editor artifacts
+Thumbs.db
+*.tmp
